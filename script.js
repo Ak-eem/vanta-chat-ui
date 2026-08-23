@@ -1,12 +1,207 @@
-/* Framework-free interactions for direct-file hosting. */
-(()=>{const $=s=>document.querySelector(s),feed=$('#feed'),input=$('#prompt'),form=$('#form'),status=$('#status'),orch=$('#orch'),drawer=$('#drawer'),scrim=$('#scrim'),open=$('#openDrawer'),close=$('#closeDrawer'),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;let busy=false;const data=[['CLAUDE','violet','Vanta is a reasoning relay: one prompt is framed, several specialists reason in parallel, and the shared signal comes back distilled.','1.18s','95'],['CHATGPT','cyan','Think of it as a panel of experts with one editor. Every model explores an angle while orchestration keeps the final answer coherent.','1.44s','92'],['GEMINI','blue','Vanta compares model outputs and gives you the overlap plus useful disagreement—not a noisy transcript.','1.29s','90'],['DEEPSEEK','green','The system parallelizes inference, checks consensus, and remembers only the context you choose to keep.','1.02s','93'],['PERPLEXITY','amber','For research-heavy questions, Vanta enriches the swarm with RAG memory and surfaces a grounded synthesis.','1.76s','89']];
-const now=()=>new Intl.DateTimeFormat([],{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date());
-function setStatus(text,color='cyan'){status.querySelector('span').textContent=text;status.querySelector('i').className=color}
-function bottom(){requestAnimationFrame(()=>scrollTo({top:document.body.scrollHeight,behavior:reduced?'auto':'smooth'}))}
-function user(text){const x=document.createElement('article');x.className='msg user';x.innerHTML='<div class="meta"><strong>AG</strong><span>YOU</span><time></time></div><div class="bubble"></div>';x.querySelector('time').textContent=now();x.querySelector('.bubble').textContent=text;feed.append(x)}
-function card(d,i){const x=document.createElement('div');x.className='card';x.style.animationDelay=reduced?'0ms':`${i*90}ms`;x.innerHTML=`<header><b><i class="${d[1]}"></i>${d[0]}</b><small>${d[3]}</small></header><p></p><footer>${d[4]}% signal <em><i style="width:${d[4]}%"></i></em></footer>`;x.querySelector('p').textContent=d[2];return x}
-function loading(){const x=document.createElement('article');x.className='msg bot';x.innerHTML='<div class="meta"><strong>V</strong><span>VANTA</span><time>ROUTING NOW</time></div><div class="stack"><div class="card is-loading"><header><b><i class="cyan"></i>ORCHESTRATOR</b><small></small></header><p></p><footer>•••</footer></div></div>';x.querySelector('small').textContent=orch.checked?'5 destinations':'single model';x.querySelector('p').textContent=orch.checked?'Framing prompt and routing to the swarm…':'Framing prompt and preparing response…';feed.append(x);return x}
-function answer(){const x=document.createElement('article');x.className='msg bot';x.innerHTML='<div class="meta"><strong>V</strong><span>VANTA</span><time></time></div><div class="stack compare"></div>';x.querySelector('time').textContent=now()+' · merged response';const stack=x.querySelector('.stack');data.forEach((d,i)=>stack.append(card(d,i)));const d=document.createElement('div');d.className='divider';d.innerHTML='<span>MERGED SUMMARY · 5/5 AGREEMENT</span>';stack.append(d);const s=document.createElement('div');s.className='summary';s.innerHTML='<b>✦</b><p><strong>The Vanta read:</strong> multiple perspectives are useful when routing stays invisible, context stays grounded, and the final signal stays yours.</p>';stack.append(s);const ins=document.createElement('div');ins.className='insights';ins.innerHTML='<span class="chip">RAG · workspace context</span><span class="watch"><i></i>Watcher: consensus detected</span>';stack.append(ins);feed.append(x)}
-form.addEventListener('submit',e=>{e.preventDefault();const text=input.value.trim();if(busy||!text)return;busy=true;user(text);input.value='';input.style.height='auto';setStatus(orch.checked?'ROUTING TO SWARM':'PROCESSING','violet');const wait=orch.checked?(reduced?350:1350):(reduced?300:850),load=loading();bottom();setTimeout(()=>{load.remove();answer();busy=false;setStatus('SYNTHESIS READY','green');bottom();setTimeout(()=>setStatus('READY TO ROUTE'),2600)},wait)});
-input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,100)+'px'});input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit()}});document.querySelectorAll('.selectors button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.selectors button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}));
-function toggleDrawer(force){const yes=force??!drawer.classList.contains('open');drawer.classList.toggle('open',yes);scrim.classList.toggle('open',yes);drawer.setAttribute('aria-hidden',String(!yes));open.setAttribute('aria-expanded',String(yes));if(yes)close.focus();else open.focus()}open.addEventListener('click',()=>toggleDrawer(true));close.addEventListener('click',()=>toggleDrawer(false));scrim.addEventListener('click',()=>toggleDrawer(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleDrawer(false);if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#clear').click()}});$('#clear').addEventListener('click',()=>{feed.innerHTML='';setStatus('SESSION CLEARED','amber');setTimeout(()=>setStatus('READY TO ROUTE'),1600)});})();
+/* Socket-backed Vanta chat with an offline demo fallback. */
+const BACKEND_URL = 'http://localhost:5000';
+
+(() => {
+  'use strict';
+
+  const $ = (selector) => document.querySelector(selector);
+  const messages = $('#messages');
+  const form = $('#messageForm');
+  const input = $('#messageInput');
+  const sendButton = form.querySelector('.send-button');
+  const brainStrip = $('#brainStrip');
+  const brainDot = $('#brainDot');
+  const brainStatus = $('#brainStatus');
+  const statusSource = $('#statusSource');
+  const connectionPill = $('#connectionPill');
+  const connectionDot = connectionPill.querySelector('.connection-dot');
+  const connectionText = $('#connectionText');
+  const thinkingToggle = $('#thinkingToggle');
+  const modeButtons = [...document.querySelectorAll('.mode-button')];
+  const clearButton = $('#clearButton');
+
+  let mode = 'chat';
+  let socket = null;
+  let demoMode = false;
+  let demoTimers = new Set();
+  const responseKeys = new Set();
+
+  const timestamp = () => new Intl.DateTimeFormat([], { hour: '2-digit', minute: '2-digit' }).format(new Date());
+
+  function setConnection(label, state) {
+    connectionText.textContent = label;
+    connectionDot.className = `connection-dot ${state}`;
+  }
+
+  function setBrainStatus(state, message, source = 'Socket.IO') {
+    const safeState = ['online', 'idle'].includes(String(state).toLowerCase()) ? 'online'
+      : ['thinking', 'busy'].includes(String(state).toLowerCase()) ? 'thinking' : 'fallback';
+    brainStrip.className = `brain-strip ${safeState}`;
+    brainDot.className = `status-dot ${safeState}`;
+    brainStatus.textContent = message || (safeState === 'thinking' ? 'nemotron: thinking…' : safeState === 'fallback' ? 'r1: fallback' : 'idle');
+    statusSource.textContent = source;
+  }
+
+  function clearDemoTimers() {
+    demoTimers.forEach((timer) => window.clearTimeout(timer));
+    demoTimers = new Set();
+  }
+
+  function addMessage(kind, text) {
+    const article = document.createElement('article');
+    article.className = `message ${kind === 'user' ? 'user-message' : 'vanta-message'}`;
+    const meta = document.createElement('div');
+    meta.className = 'message-meta';
+    const avatar = document.createElement('span');
+    avatar.className = 'avatar';
+    avatar.textContent = kind === 'user' ? 'Y' : 'V';
+    const author = document.createElement('strong');
+    author.textContent = kind === 'user' ? 'You' : 'Vanta';
+    const time = document.createElement('time');
+    time.textContent = timestamp();
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = text;
+    meta.append(avatar, author, time);
+    article.append(meta, bubble);
+    messages.append(article);
+    article.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  function extractResponse(payload) {
+    if (typeof payload === 'string') return payload;
+    if (!payload || typeof payload !== 'object') return '';
+    return payload.message || payload.response || payload.text || payload.content || payload.data?.message || '';
+  }
+
+  function responseKey(payload, text) {
+    if (payload && typeof payload === 'object' && (payload.id || payload.requestId || payload.messageId)) {
+      return String(payload.id || payload.requestId || payload.messageId);
+    }
+    return `${text}|${messages.children.length}`;
+  }
+
+  function renderResponse(payload) {
+    const text = extractResponse(payload);
+    if (!text) return;
+    const key = responseKey(payload, text);
+    if (responseKeys.has(key)) return;
+    responseKeys.add(key);
+    addMessage('vanta', text);
+    setBrainStatus('idle', 'idle');
+    sendButton.disabled = false;
+  }
+
+  function demoReply(message) {
+    const lower = message.toLowerCase();
+    const reply = lower.includes('hello') || lower.includes('hi')
+      ? 'Hello. I am running in local demo mode, but the conversation flow is ready.'
+      : mode === 'task'
+        ? `Demo plan: I would break “${message}” into clear steps, validate the constraints, then report the result.`
+        : mode === 'orchestrate'
+          ? `Demo orchestration: I would route “${message}” through the available specialists and merge their strongest signals.`
+          : `Demo response: I received “${message}”. Connect the Vanta backend at ${BACKEND_URL} for a live model response.`;
+    const timer = window.setTimeout(() => {
+      demoTimers.delete(timer);
+      addMessage('vanta', reply);
+      setBrainStatus('idle', 'offline — demo mode', 'Demo fallback');
+      sendButton.disabled = false;
+    }, 650);
+    demoTimers.add(timer);
+  }
+
+  function useDemoMode() {
+    demoMode = true;
+    setConnection('offline · demo', 'offline');
+    setBrainStatus('fallback', 'offline — demo mode', 'Demo fallback');
+  }
+
+  function connectSocket() {
+    if (typeof window.io !== 'function') {
+      useDemoMode();
+      return;
+    }
+    socket = window.io(BACKEND_URL, { autoConnect: true, reconnection: true });
+    socket.on('connect', () => {
+      demoMode = false;
+      clearDemoTimers();
+      setConnection('connected', 'online');
+      setBrainStatus('online', 'flash: online');
+    });
+    socket.on('disconnect', () => {
+      useDemoMode();
+    });
+    socket.on('connect_error', () => {
+      useDemoMode();
+    });
+    socket.on('status', (payload = {}) => {
+      const state = payload.state || 'idle';
+      setBrainStatus(state, payload.message);
+    });
+    socket.on('response', renderResponse);
+  }
+
+  function emitMessage(message) {
+    const think = mode === 'task' ? true : thinkingToggle.checked;
+    if (!socket || !socket.connected || demoMode) {
+      useDemoMode();
+      setBrainStatus('thinking', 'offline — demo mode', 'Demo fallback');
+      demoReply(message);
+      return;
+    }
+    sendButton.disabled = true;
+    setBrainStatus('thinking', 'nemotron: thinking…');
+    if (mode === 'orchestrate') {
+      socket.emit('orchestrate', { message });
+    } else {
+      socket.emit('chat', { message, think });
+    }
+  }
+
+  function resizeInput() {
+    input.style.height = 'auto';
+    input.style.height = `${Math.min(input.scrollHeight, 130)}px`;
+  }
+
+  modeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      mode = button.dataset.mode;
+      modeButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+      const isTask = mode === 'task';
+      thinkingToggle.disabled = isTask;
+      thinkingToggle.closest('.thinking-control').setAttribute('aria-label', isTask ? 'Task mode always uses thinking' : 'Toggle thinking');
+    });
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const message = input.value.trim();
+    if (!message || sendButton.disabled) return;
+    addMessage('user', message);
+    input.value = '';
+    resizeInput();
+    emitMessage(message);
+  });
+
+  input.addEventListener('input', resizeInput);
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
+
+  clearButton.addEventListener('click', () => {
+    clearDemoTimers();
+    messages.replaceChildren();
+    responseKeys.clear();
+    setBrainStatus(demoMode ? 'fallback' : 'online', demoMode ? 'offline — demo mode' : 'idle', demoMode ? 'Demo fallback' : 'Socket.IO');
+    sendButton.disabled = false;
+  });
+
+  connectSocket();
+})();

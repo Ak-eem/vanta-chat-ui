@@ -1,1 +1,85 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#050609"><meta name="description" content="Vanta multi-model conversation console"><title>Vanta / Conversation Engine</title><link rel="stylesheet" href="styles.css"></head><body><div class="app"><header class="topbar"><a class="brand" href="#main" aria-label="Vanta home"><span class="logo" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 2 37 12v16L20 38 3 28V12L20 2Z" fill="none" stroke="currentColor"/><path d="m10 13 10 18 10-18M14 11l6 11 6-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="2" fill="currentColor"/></svg></span><b>VANTA<span>/</span></b><small>CONSOLE</small></a><div class="models" aria-label="Model status"><span><i class="violet"></i>Claude</span><span><i class="cyan"></i>ChatGPT</span><span><i class="blue"></i>Gemini</span><span><i class="green"></i>DeepSeek</span><span><i class="amber"></i>Perplexity</span></div><div class="top-actions"><label class="orch"><span>ORCHESTRATE</span><input id="orch" type="checkbox" checked><em></em></label><button class="menu" id="openDrawer" aria-label="Open workspace menu" aria-controls="drawer" aria-expanded="false"><i></i><i></i><i></i></button></div></header><main id="main"><section class="conversation" aria-label="Conversation"><div class="conv-head"><div><p class="eyebrow"><i class="live"></i> SESSION 0084 / LIVE</p><h1>Ask the swarm<span class="cursor">_</span></h1></div><button class="clear" id="clear">CLEAR <span>⌘ K</span></button></div><div id="feed" class="feed" aria-live="polite"><article class="msg user"><div class="meta"><strong>AG</strong><span>YOU</span><time>09:41:02</time></div><div class="bubble">What is the simplest way to think about Vanta?</div></article><article class="msg bot"><div class="meta"><strong>V</strong><span>VANTA</span><time>09:41:04 · 5 models</time></div><div class="stack"><div class="card featured"><header><b><i class="violet"></i>CLAUDE 3.5</b><small>94% CONFIDENCE</small></header><p>Vanta is a <mark>conversation engine</mark>: one clear prompt enters, several expert models reason in parallel, and Vanta returns the signal they share.</p><footer>1.24s latency <em><i style="width:94%"></i></em></footer></div><div class="divider"><span>ROUTED TO 5 MODELS</span></div><div class="insights"><span class="chip">RAG · 3 sources</span><span class="watch"><i></i>Watcher: consensus detected</span></div></div></article><article class="msg user"><div class="meta"><strong>AG</strong><span>YOU</span><time>09:42:19</time></div><div class="bubble">Compare the five models on a product launch decision.</div></article><article class="msg bot"><div class="meta"><strong>V</strong><span>VANTA</span><time>09:42:23 · merged response</time></div><div class="stack compare"><div class="card"><header><b><i class="violet"></i>CLAUDE</b><small>1.8s</small></header><p>Lead with a focused beta. Earn trust through a tight feedback loop.</p><footer>96% signal <em><i style="width:96%"></i></em></footer></div><div class="card"><header><b><i class="cyan"></i>CHATGPT</b><small>2.1s</small></header><p>Sequence the launch: preview, measurable proof, then a public narrative.</p><footer>91% signal <em><i style="width:91%"></i></em></footer></div><div class="card"><header><b><i class="blue"></i>GEMINI</b><small>1.6s</small></header><p>Use a segmented rollout so each audience sees its own context.</p><footer>88% signal <em><i style="width:88%"></i></em></footer></div><div class="card"><header><b><i class="green"></i>DEEPSEEK</b><small>1.2s</small></header><p>Reduce risk with a small cohort, guardrails, and a tested rollback plan.</p><footer>90% signal <em><i style="width:90%"></i></em></footer></div><div class="card"><header><b><i class="amber"></i>PERPLEXITY</b><small>2.4s</small></header><p>Validate the market story with current evidence and proof points.</p><footer>87% signal <em><i style="width:87%"></i></em></footer></div><div class="divider"><span>MERGED SUMMARY · 5/5 AGREEMENT</span></div><div class="summary"><b>✦</b><p><strong>The shared move:</strong> launch narrow, instrument everything, and let real customer evidence unlock your next audience.</p></div><div class="insights"><span class="chip">RAG · launch playbook</span><span class="watch"><i></i>Watcher: 2 assumptions flagged</span></div></div></article></div><div class="composer-wrap"><div id="status" class="status"><i class="cyan"></i><span>READY TO ROUTE</span><small>SHIFT + ENTER FOR NEW LINE</small></div><form id="form" class="composer"><label for="prompt">&gt;</label><textarea id="prompt" rows="1" aria-label="Message Vanta" placeholder="Ask Vanta anything..."></textarea><div class="tools"><button type="button" class="attach" aria-label="Attach context"><svg viewBox="0 0 24 24"><path d="m20.5 11.5-8.9 8.9a5 5 0 0 1-7.1-7.1l9.2-9.2a3.5 3.5 0 0 1 5 5l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button><div class="selectors" role="group" aria-label="Models"><button type="button" class="active">ALL 5</button><button type="button">CLAUDE</button><button type="button">GPT</button></div><button class="send" type="submit" aria-label="Send message"><svg viewBox="0 0 24 24"><path d="M4 12 20 4l-4 16-4.5-6.5L4 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m11.5 13.5 8.5-9.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button></div></form><p class="disclaimer">VANTA CAN MAKE MISTAKES. VERIFY IMPORTANT INFORMATION.</p></div></section></main><aside id="drawer" class="drawer" aria-label="Workspace details" aria-hidden="true"><div class="drawer-head"><div><p class="eyebrow">WORKSPACE</p><h2>Control room</h2></div><button id="closeDrawer" aria-label="Close workspace menu">×</button></div><section><header><b>SESSIONS</b><a>+ NEW</a></header><button class="session current"><i></i><span><b>Launch strategy / swarm</b><small>5 models · just now</small></span><em>···</em></button><button class="session"><i></i><span><b>Q3 narrative review</b><small>3 models · yesterday</small></span><em>···</em></button><button class="session"><i></i><span><b>Onboarding architecture</b><small>5 models · Aug 12</small></span><em>···</em></button></section><section><header><b>RAG MEMORY</b><a>MANAGE</a></header><p class="muted">Context Vanta can recall in this workspace.</p><div class="memory"><span>brand voice</span><span>launch brief</span><span>user research</span><span>+ 12 sources</span></div></section><section><header><b>WATCHER FEED</b><a class="green-text">● LIVE</a></header><div class="event"><time>09:42:23</time><p>Consensus formed across 5 responses.</p></div><div class="event"><time>09:42:21</time><p>Cross-checking current market evidence.</p></div><div class="event"><time>09:42:19</time><p>Prompt classified as strategic / comparative.</p></div></section><footer class="drawer-foot"><button>⚙ <b>SETTINGS</b><small>⌘ ,</small></button><p><i class="green"></i>VANTA CORE ONLINE <small>v0.8.4</small></p></footer></aside><div id="scrim" class="scrim"></div></div><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <meta name="description" content="Vanta multi-mode conversation console">
+  <title>Vanta / Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar" aria-label="Vanta header">
+      <a class="brand" href="#chat" aria-label="Vanta home">
+        <span class="brand-mark" aria-hidden="true">V</span>
+        <span>
+          <strong>Vanta</strong>
+          <small>conversation layer</small>
+        </span>
+      </a>
+      <div class="topbar-actions">
+        <span class="connection-pill" id="connectionPill" role="status" aria-live="polite">
+          <span class="connection-dot" aria-hidden="true"></span>
+          <span id="connectionText">connecting</span>
+        </span>
+      </div>
+    </header>
+
+    <section class="chat-panel" id="chat" aria-labelledby="chatTitle">
+      <div class="chat-heading">
+        <div>
+          <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span> LIVE CONVERSATION</p>
+          <h1 id="chatTitle">Talk to <span>Vanta</span></h1>
+          <p class="subtitle">A focused interface for chat, tasks, and orchestration.</p>
+        </div>
+        <button class="clear-button" id="clearButton" type="button">Clear chat</button>
+      </div>
+
+      <div class="brain-strip" id="brainStrip" role="status" aria-live="polite" aria-atomic="true">
+        <span class="status-dot online" id="brainDot" aria-hidden="true"></span>
+        <span class="status-label">brain status</span>
+        <strong id="brainStatus">flash: online</strong>
+        <span class="status-source" id="statusSource">Socket.IO</span>
+      </div>
+
+      <div class="messages" id="messages" aria-live="polite" aria-label="Conversation messages">
+        <article class="message vanta-message">
+          <div class="message-meta"><span class="avatar">V</span><strong>Vanta</strong><time>now</time></div>
+          <div class="bubble">Ready when you are. Choose a mode and send a message to begin.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="composer-wrap" aria-label="Message composer">
+      <div class="mode-row">
+        <div class="segmented-control" role="group" aria-label="Conversation mode">
+          <button class="mode-button active" type="button" data-mode="chat" aria-pressed="true">chat</button>
+          <button class="mode-button" type="button" data-mode="task" aria-pressed="false">task</button>
+          <button class="mode-button" type="button" data-mode="orchestrate" aria-pressed="false">orchestrate</button>
+        </div>
+        <label class="thinking-control" for="thinkingToggle">
+          <input id="thinkingToggle" type="checkbox" checked>
+          <span class="toggle-track" aria-hidden="true"><span></span></span>
+          <span>thinking</span>
+        </label>
+      </div>
+
+      <form class="composer" id="messageForm">
+        <label class="sr-only" for="messageInput">Message Vanta</label>
+        <textarea id="messageInput" rows="1" maxlength="4000" placeholder="Ask Vanta anything..." autocomplete="off"></textarea>
+        <div class="composer-footer">
+          <span class="hint">Enter to send <span aria-hidden="true">·</span> Shift + Enter for a new line</span>
+          <button class="send-button" type="submit" aria-label="Send message">Send <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+      <p class="disclaimer">Vanta can make mistakes. Verify important information.</p>
+    </section>
+  </main>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
