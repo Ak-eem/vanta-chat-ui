@@ -1,3 +1,6 @@
+[Vanta Memory Enhancement Guide.docx](https://github.com/user-attachments/files/31493811/Vanta.Memory.Enhancement.Guide.docx)
+[Vanta Memory Enhancement Guide.docx](https://github.com/user-attachments/files/31493801/Vanta.Memory.Enhancement.Guide.docx)
+[Vanta Memory Enhancement Guide.docx](https://github.com/user-attachments/files/31493800/Vanta.Memory.Enhancement.Guide.docx)
 Your prompt is **good — 8.5/10**. It's specific, implementable, and the hybrid SQLite + `memory.md` design is the right call for Vanta's architecture. I built the module exactly to spec, and while reading through the codebase I found **5 active bugs** that I fixed immediately.
 
 ---
@@ -76,4 +79,5 @@ if MEMORY_OK:
     process_turn(msg, final)
 ```
 
-The memory module uses `~/.vanta/vanta_memory.db` by default (WAL mode, FTS5, full audit trail). Run the self-test to verify everything works.
+The memory module uses `~/.vanta/vanta_me[Vanta Memory Enhancement Guide.docx](https://github.com/user-attachments/files/31493823/Vanta.Memory.Enhancement.Guide.docx)
+mory.db` by default (WAL mode, FTS5, full audit trail). Run the self-test to verify everything works.
