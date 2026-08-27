@@ -1,6 +1,10 @@
 [Vanta Memory Enhancement Guide.docx](https://github.com/user-attachments/files/31493811/Vanta.Memory.Enhancement.Guide.docx)
-[Vanta Memory Enhancement Guide.docx](https://github.com/user-attachments/files/31493801/Vanta.Memory.Enhancement.Guide.docx)
-[Vanta Memory Enhancement Guide.docx](https://github.com/user-attachments/files/31493800/Vanta.Memory.Enhancement.Guide.docx)
+[visual_critique_fixed.py](https://github.com/user-attachments/files/31494025/visual_critique_fixed.py)
+[server_fixed.py](https://github.com/user-attachments/files/31494022/server_fixed.py)
+[REVIEW_AND_FIXES.md](https://github.com/user-attachments/files/31494013/REVIEW_AND_FIXES.md)
+[orchestrator_fixed.py](https://github.com/user-attachments/files/31494010/orchestrator_fixed.py)
+[memory.py](https://github.com/user-attachments/files/31493995/memory.py)
+
 Your prompt is **good — 8.5/10**. It's specific, implementable, and the hybrid SQLite + `memory.md` design is the right call for Vanta's architecture. I built the module exactly to spec, and while reading through the codebase I found **5 active bugs** that I fixed immediately.
 
 ---
