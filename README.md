@@ -282,7 +282,7 @@ function htmlToText(html: string): string {
     .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">\").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/&gt;/g, ">" ).replace(/&quot;/g, '"').replace(/&#39;/g, "'")
     .replace(/\s+/g, " ").trim().slice(0, 12000);
 }
 
