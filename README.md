@@ -1,96 +1,312 @@
-PS C:\Users\User\Desktop\MIRA\mira\Mira-main>
- npm vercel inspect dpl_DHA5MDPFjysmkYGCdaTmSBfXsu17 --logs
-Need to install the following packages:
-vercel@5.11.2
-Ok to proceed? (y) y
-npm warn deprecated stream-to-promise@2.2.0: Deprecated. Use node:stream/promises and node:stream/consumers instead.
-npm warn deprecated tar@7.5.7: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
-Vercel CLI 59.11.2 (Node.js 24.16.0)
-> NOTE: The Vercel CLI now collects telemetry regarding usage of the CLI.
-> This information is used to shape the CLI roadmap and prioritize features.
-> You can learn more, including how to opt-out if you don't like to participate in this program,
-> by visiting the following URL:
-> https://vercel.com/docs/cli/about-telemetry
-> No existing credentials found. Please log in:
-> 
->   Visit https://vercel.com/oauth/device?user_code=JMKW-FVDX
-> Success! Logged in.
-2026-09-02T15:50:49.747Z  Running build in Washington, D.C., USA (East) – iad1
-2026-09-02T15:50:49.748Z  Build machine configuration: 2 cores, 8 GB
-2026-09-02T15:50:49.932Z  Cloning github.com/Ak-eem/Mira (Branch: main, Commit: 6aff5cb)
-2026-09-02T15:50:50.726Z  Cloning completed: 794.000ms
-2026-09-02T15:50:51.079Z  Restored build cache from previous deployment (QSjT5ar2bsiSsNkRaZiCY4849FuE)
-2026-09-02T15:50:51.360Z  Running "vercel build"
-2026-09-02T15:50:51.381Z  Vercel CLI 59.11.0
-2026-09-02T15:50:51.576Z  Installing dependencies...
-2026-09-02T15:50:52.774Z  
-2026-09-02T15:50:52.775Z  up to date in 1s
-2026-09-02T15:50:52.775Z  
-2026-09-02T15:50:52.775Z  156 packages are looking for funding
-2026-09-02T15:50:52.775Z  run `npm fund` for details
-2026-09-02T15:50:52.776Z  npm warn allow-scripts 1 package has install scripts not yet covered by allowScripts:
-2026-09-02T15:50:52.776Z  npm warn allow-scripts   unrs-resolver@1.12.2 (postinstall: node postinstall.js)
-2026-09-02T15:50:52.777Z  npm warn allow-scripts
-2026-09-02T15:50:52.777Z  npm warn allow-scripts Run `npm approve-builds --allow-scripts-pending` to review, or `npm approve-builds <pkg>` to allow.
-2026-09-02T15:50:52.806Z  Detected Next.js version: 16.3.0
-2026-09-02T15:50:52.813Z  Running "npm run build"
-2026-09-02T15:50:52.920Z  
-2026-09-02T15:50:52.920Z  > mira@0.1.0 build
-2026-09-02T15:50:52.920Z  > next build
-2026-09-02T15:50:52.920Z  
-2026-09-02T15:50:53.427Z  ⚡ Next.js 16.3.0 (Turbopack)
-2026-09-02T15:50:53.536Z  Applying modifyConfig from Vercel
-2026-09-02T15:50:53.539Z  ⚙ Running next.config.js took 112ms
-2026-09-02T15:50:53.645Z  
-2026-09-02T15:50:53.685Z  Creating an optimized production build ...
-2026-09-02T15:50:59.987Z  ✓ Compiled successfully in 5.4s
-2026-09-02T15:50:59.990Z  Running TypeScript ...
-2026-09-02T15:51:03.408Z  lib/chat/processMessage.ts(99,7): error TS2741: Property 'last_message_at' is missing in type '{ id: any; business_id: any; }' but required in type '{ id: any; business_id: any; last_message_at: any; }'.
-2026-09-02T15:51:03.409Z  lib/chat/processMessage.ts(104,7): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.409Z  lib/chat/processMessage.ts(111,28): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.409Z  lib/chat/processMessage.ts(120,22): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.409Z  lib/chat/processMessage.ts(140,28): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.410Z  lib/chat/processMessage.ts(157,19): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.410Z  lib/chat/processMessage.ts(188,17): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.410Z  lib/chat/processMessage.ts(203,26): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.410Z  lib/chat/processMessage.ts(220,17): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.410Z  lib/chat/processMessage.ts(253,24): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.410Z  lib/chat/processMessage.ts(270,15): error TS18047: 'conversation' is possibly 'null'.
-2026-09-02T15:51:03.427Z  Failed to type check.
-2026-09-02T15:51:03.427Z  
-2026-09-02T15:51:03.476Z  Error: Command "npm run build" exited with 1
-status ❌ Error
+# Mira: white-label theme + URL fetch package
 
-## Antigravity Resume Prompt - Mira Trial Build (2026-09-07)
-
-```text
-TASK on github.com/Ak-eem/Mira. This is a RESUME attempt: a previous AI session was asked to build this feature but hit a session limit and may or may not have pushed anything.
-
-STEP 1 - INSPECT FIRST (do this before writing any code):
-- Check current main HEAD (run git fetch + git log origin/main -5).
-- List ALL branches (git branch -a) and open PRs (gh pr list or the GitHub API).
-- Search the whole repo (including every branch) for any trace of trial/paywall/plan work: grep for 'trial', 'paywall', 'trial_started_at', 'trial_ends_at', 'plan', '0027' in migrations, and look at any recent commit/branch names.
-- REPORT what you find before building.
-
-THEN EITHER:
-- If you find partial trial/plan code on some branch: continue that work - port it onto a fresh branch off current main, finish it to the full spec below, and say what you inherited.
-- If you find NOTHING (likely): build the entire feature from scratch per the spec below.
-
-FULL SPEC:
-Repo: Next.js 16 App Router, React, TypeScript, Tailwind, Supabase Postgres + Auth, deployed on Vercel. Follow existing conventions; explore the code first. Implement free-trial-then-paywall for businesses: new business accounts get a 14-day free trial, then the account locks until the owner upgrades. NO real payment processor exists yet - build everything except charging.
-
-Existing context: onboarding creates a business account (with admin portal) + a customer chat widget per business. Migrations currently go up to 0026 (0025 conversation claim, 0026 customer rating).
-
-1) New idempotent migration supabase/migrations/0027_business_plans.sql: add to businesses (or cleaner separate table): plan text default 'trial' (trial | locked | paid), trial_started_at timestamptz default now(), trial_ends_at timestamptz. Trial = 14 days.
-2) On business creation: set plan='trial', trial_started_at=now(), trial_ends_at = now() + interval '14 days'. Do NOT block business creation on payment.
-3) Server-side enforcement (authoritative): helper e.g. lib/plans.ts with isTrialActive() / isLocked(). Every protected business route/action (admin dashboard, portal, products CRUD, chat config, settings) checks it: expired trial + plan != 'paid' => admin/portal show an upgrade screen, APIs/server actions reject (403 or redirect with reason).
-4) Customer chat when locked: widget shows friendly offline state (e.g. 'This business is temporarily unavailable'), API does not let Mira reply. Nothing deleted - data intact.
-5) Upgrade UI: soft, animated, glassmorphic screen matching existing design/colors, shown at paywall or on locked login. Explains the plan, 'Pay to continue' button is a clearly-marked STUB (payment integration comes later). Show trial days remaining on the dashboard during trial.
-6) Edge cases: trial already expired at login; expiry mid-session (re-check server-side on actions); one active trial per admin/owner account (check how businesses relate to owners and guard against creating a second free-trial business; a paid business doesn't block creating more).
-7) npx tsc --noEmit must pass. Run npm run lint (target files only if the repo-wide lint has pre-existing errors elsewhere - note them but don't fix unrelated files). Try next build; if sandbox can't reach fonts.googleapis.com for next/font, say so explicitly and don't claim a full build pass.
-8) Do NOT touch branch feature/ci-error-product-matching (a separate open PR #11) or its files beyond what's needed. Push ur work to a NEW branch off current main and open a PR. Do not push to main directly.
-
-REPORT: inspection results from Step 1 (did u inherit anything or build from scratch?), commits, files changed, exact SQL of migration 0027 (must be applied to remote Supabase manually by the owner), how gating is enforced on admin/portal/customer chat, how the one-trial-per-owner guard works, typecheck/lint/build results, PR link. Flag clearly: no real payment is wired - upgrade button is a stub.
-
-REPORT BACK: success with commit SHA, or the exact HTTP error + body that blocked the write.
+## 1. MIGRATION — supabase/migrations/0002_white_label_theme.sql
+```sql
+alter table public.businesses
+  add column if not exists theme jsonb not null default '{"primary":"#0f766e","secondary":"#115e59","surface":"#ffffff","text":"#0f172a","radius":16,"font":"system","logo_url":null,"show_powered_by":false}'::jsonb;
 ```
+
+## 2. TYPES — add to lib/types.ts
+```ts
+export type MiraTheme = {
+  primary: string;
+  secondary: string;
+  surface: string;
+  text: string;
+  radius: number;
+  font: "system" | "serif" | "mono";
+  logo_url: string | null;
+  show_powered_by: boolean;
+};
+
+export const defaultTheme: MiraTheme = {
+  primary: "#0f766e", secondary: "#115e59", surface: "#ffffff",
+  text: "#0f172a", radius: 16, font: "system", logo_url: null, show_powered_by: false,
+};
+
+export function normalizeTheme(raw: unknown): MiraTheme {
+  const t = (raw ?? {}) as Partial<MiraTheme>;
+  return {
+    primary: typeof t.primary === "string" ? t.primary : defaultTheme.primary,
+    secondary: typeof t.secondary === "string" ? t.secondary : defaultTheme.secondary,
+    surface: typeof t.surface === "string" ? t.surface : defaultTheme.surface,
+    text: typeof t.text === "string" ? t.text : defaultTheme.text,
+    radius: typeof t.radius === "number" ? t.radius : defaultTheme.radius,
+    font: t.font === "serif" || t.font === "mono" ? t.font : "system",
+    logo_url: typeof t.logo_url === "string" ? t.logo_url : null,
+    show_powered_by: t.show_powered_by === true,
+  };
+}
+```
+
+## 3. buildContext — in lib/ai/buildContext.ts
+```ts
+// in the select:
+.select("id,name,currency,timezone,ai_tone,ai_instructions,hours_note,social_links,theme")
+
+// in the returned context:
+theme: normalizeTheme(business?.theme),
+```
+
+## 4. SAVE API — app/api/admin/businesses/[businessId]/theme/route.ts
+```ts
+import { NextResponse } from "next/server";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { normalizeTheme } from "@/lib/types";
+
+export async function PUT(_req: Request, { params }: { params: { businessId: string } }) {
+  const supabase = createRouteHandlerClient({ cookies });
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+
+  const theme = normalizeTheme(await _req.json());
+  const { data: biz } = await supabase.from("businesses").select("owner_id").eq("id", params.businessId).single();
+  if (!biz || biz.owner_id !== user.id) return NextResponse.json({ error: "forbidden" }, { status: 403 });
+
+  const { error } = await supabase.from("businesses").update({ theme }).eq("id", params.businessId);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json({ ok: true, theme });
+}
+```
+
+## 5. THEME FORM — app/admin/(protected)/businesses/[businessId]/settings/ThemeForm.tsx
+```tsx
+"use client";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/browser";
+import type { MiraTheme } from "@/lib/types";
+import { defaultTheme } from "@/lib/types";
+
+const FONTS = ["system", "serif", "mono"] as const;
+const SWATCHES = ["primary", "secondary", "surface", "text"] as const;
+
+export function ThemeForm({ businessId, initial }: { businessId: string; initial?: Partial<MiraTheme> }) {
+  const [theme, setTheme] = useState<MiraTheme>({ ...defaultTheme, ...initial });
+  const [saving, setSaving] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const set = <K extends keyof MiraTheme>(key: K, v: MiraTheme[K]) => setTheme((t) => ({ ...t, [key]: v }));
+
+  async function uploadLogo(file: File) {
+    const supabase = createClient();
+    const path = `${businessId}/logo-${Date.now()}`;
+    const { error } = await supabase.storage.from("business-assets").upload(path, file, { upsert: true });
+    if (error) return setMsg("logo upload failed: " + error.message);
+    const { data } = supabase.storage.from("business-assets").getPublicUrl(path);
+    set("logo_url", data.publicUrl);
+  }
+
+  async function save() {
+    setSaving(true); setMsg("");
+    const res = await fetch(`/api/admin/businesses/${businessId}/theme`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(theme),
+    });
+    setSaving(false);
+    setMsg(res.ok ? "theme saved" : "save failed");
+  }
+
+  return (
+    <div className="space-y-6 rounded-2xl glass-panel p-6">
+      <h3>White-label theme</h3>
+      <div className="flex flex-wrap items-center gap-5">
+        {SWATCHES.map((k) => (
+          <label key={k} className="flex items-center gap-2 text-sm">
+            {k}
+            <input type="color" value={theme[k] as string} onChange={(e) => set(k, e.target.value as never)} />
+          </label>
+        ))}
+      </div>
+      <label className="block text-sm">
+        Corner radius: {theme.radius}px
+        <input type="range" min={0} max={32} value={theme.radius} onChange={(e) => set("radius", Number(e.target.value))} className="w-full" />
+      </label>
+      <label className="block text-sm">
+        Font
+        <select value={theme.font} onChange={(e) => set("font", e.target.value as MiraTheme["font"])} className="ml-2">
+          {FONTS.map((f) => <option key={f} value={f}>{f}</option>)}
+        </select>
+      </label>
+      <div className="flex items-center gap-3">
+        {theme.logo_url && <img src={theme.logo_url} alt="logo" className="h-10 w-10 rounded-lg object-cover" />}
+        <input type="file" accept="image/*" onChange={(e) => e.target.files?.[0] && uploadLogo(e.target.files[0])} />
+      </div>
+      <label className="flex items-center gap-2 text-sm">
+        <input type="checkbox" checked={theme.show_powered_by} onChange={(e) => set("show_powered_by", e.target.checked)} />
+        Show "Powered by Mira"
+      </label>
+      <div className="flex items-center gap-4">
+        <button onClick={save} disabled={saving} className="rounded-xl px-4 py-2 text-white" style={{ background: theme.primary }}>
+          {saving ? "saving..." : "Save theme"}
+        </button>
+        {msg && <span className="text-sm">{msg}</span>}
+      </div>
+    </div>
+  );
+}
+```
+
+## 6. WIDGET — app/chat/[businessSlug]/ChatWindow.tsx
+```tsx
+const theme = normalizeTheme(business?.theme);
+const rootStyle = {
+  "--mira-primary": theme.primary,
+  "--mira-secondary": theme.secondary,
+  "--mira-surface": theme.surface,
+  "--mira-text": theme.text,
+  "--mira-radius": `${theme.radius}px`,
+  fontFamily: theme.font === "serif" ? "Georgia, serif" : theme.font === "mono" ? "ui-monospace, monospace" : "system-ui, sans-serif",
+} as React.CSSProperties;
+
+// root container:
+<div style={rootStyle} className="mira-widget">
+
+// header (replaces bg-accent):
+<div className="mira-header" style={{ background: "var(--mira-primary)" }}>
+  {theme.logo_url ? <img src={theme.logo_url} alt="" className="h-8 w-8 rounded-full object-cover" /> : <span>{name[0]}</span>}
+</div>
+
+// powered-by line — wrap in a condition:
+{theme.show_powered_by && <a className="mira-powered-by">Powered by Mira AI</a>}
+```
+
+```css
+.mira-widget { background: var(--mira-surface); color: var(--mira-text); border-radius: var(--mira-radius); }
+.mira-bubble, .mira-header, .mira-user-msg { background: var(--mira-primary); color: var(--mira-surface); }
+.mira-ai-msg { background: var(--mira-secondary); color: var(--mira-surface); }
+.mira-powered-by { color: var(--mira-text); opacity: .6; font-size: 11px; }
+```
+
+## 7. EMBED OVERRIDES — in public/embed.js
+```js
+const overrides = {};
+if (el.dataset.title) overrides.headerTitle = el.dataset.title;
+if (el.dataset.primaryColor) overrides.primary = el.dataset.primaryColor;
+const theme = { ...(config.theme || {}), ...overrides };
+applyTheme(theme);
+```
+
+## 8. URL FETCH — lib/ai/urlFetch.ts
+```ts
+import dns from "node:dns/promises";
+import http from "node:http";
+import https from "node:https";
+import { URL } from "node:url";
+
+const TIMEOUT_MS = 10_000;
+const MAX_BYTES = 2 * 1024 * 1024;
+const MAX_REDIRECTS = 5;
+
+function isPublicIpv4(ip: string): boolean {
+  const p = ip.split(".").map(Number);
+  if (p.length !== 4 || p.some((n) => Number.isNaN(n) || n < 0 || n > 255)) return false;
+  const [a, b] = p;
+  if (a === 0 || a === 10) return false;
+  if (a === 127) return false;
+  if (a === 169 && b === 254) return false;
+  if (a === 172 && b >= 16 && b <= 31) return false;
+  if (a === 192 && b === 168) return false;
+  if (a === 100 && b >= 64 && b <= 127) return false;
+  if (a >= 224) return false;
+  return true;
+}
+
+function isPublicIpv6(ip: string): boolean {
+  const l = ip.toLowerCase();
+  if (l === "::" || l === "::1") return false;
+  if (l.startsWith("fc") || l.startsWith("fd")) return false;
+  if (l.startsWith("fe8") || l.startsWith("fe9") || l.startsWith("fea") || l.startsWith("feb")) return false;
+  if (l.startsWith("ff")) return false;
+  return true;
+}
+
+function assertPublicIp(ip: string): void {
+  if (ip.toLowerCase().startsWith("::ffff:")) return assertPublicIp(ip.slice(7));
+  const ok = ip.includes(":") ? isPublicIpv6(ip) : isPublicIpv4(ip);
+  if (!ok) throw new Error("blocked non-public ip: " + ip);
+}
+
+function validateUrl(input: string): URL {
+  let url: URL;
+  try { url = new URL(input); } catch { throw new Error("invalid url"); }
+  if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error("only http/https allowed");
+  if (url.username || url.password) throw new Error("credentials not allowed");
+  if (url.port && url.port !== "80" && url.port !== "443") throw new Error("nonstandard port blocked");
+  return url;
+}
+
+async function resolvePublic(hostname: string): Promise<string> {
+  const records = await dns.lookup(hostname, { all: true, verbatim: true });
+  const ips = (Array.isArray(records) ? records : [{ address: records.address }]).map((r) => r.address);
+  if (!ips.length) throw new Error("no dns records");
+  for (const ip of ips) assertPublicIp(ip);
+  return ips[0];
+}
+
+function requestOnce(target: URL, ip: string, timeoutMs: number): Promise<{ status: number; headers: http.IncomingHttpHeaders; body: Buffer }> {
+  return new Promise((resolve, reject) => {
+    const secure = target.protocol === "https:";
+    const mod = secure ? https : http;
+    const port = target.port ? Number(target.port) : secure ? 443 : 80;
+    const req = mod.request({
+      host: ip,
+      port,
+      path: target.pathname + target.search,
+      method: "GET",
+      headers: { Host: target.host, "User-Agent": "Mira/1.0", Accept: "text/html,application/xhtml+xml" },
+      servername: secure ? target.hostname : undefined,
+      lookup: (_h: string, _o: unknown, cb: (e: Error | null, a?: string, f?: number) => void) => cb(null, ip, ip.includes(":") ? 6 : 4),
+      rejectUnauthorized: true,
+    }, (res) => {
+      const chunks: Buffer[] = [];
+      let size = 0;
+      res.on("data", (c: Buffer) => {
+        size += c.length;
+        if (size > MAX_BYTES) { req.destroy(new Error("response too large")); return; }
+        chunks.push(c);
+      });
+      res.on("end", () => resolve({ status: res.statusCode ?? 0, headers: res.headers, body: Buffer.concat(chunks) }));
+    });
+    req.setTimeout(timeoutMs, () => req.destroy(new Error("timeout")));
+    req.on("error", reject);
+    req.end();
+  });
+}
+
+function htmlToText(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">\").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ").trim().slice(0, 12000);
+}
+
+export async function urlFetch(rawUrl: string, opts: { timeoutMs?: number; maxRedirects?: number } = {}): Promise<string> {
+  const timeoutMs = opts.timeoutMs ?? TIMEOUT_MS;
+  const maxRedirects = opts.maxRedirects ?? MAX_REDIRECTS;
+  let current = validateUrl(rawUrl);
+  for (let hop = 0; hop <= maxRedirects; hop++) {
+    const ip = await resolvePublic(current.hostname);
+    const { status, headers, body } = await requestOnce(current, ip, timeoutMs);
+    if (status >= 300 && status < 400) {
+      const loc = headers.location ? new URL(headers.location, current) : null;
+      if (!loc) throw new Error("redirect without location");
+      current = validateUrl(loc.toString());
+      continue;
+    }
+    if (status >= 400) throw new Error("http " + status + " for " + current.href);
+    return htmlToText(body.toString("utf8"));
+  }
+  throw new Error("too many redirects");
+}
+```
+
+## 9. WIRE IT — in lib/chat/processMessage.ts
+Register urlFetch as a tool the AI can call with a URL, server-side only, never exposed to the client widget. Each redirect hop re-validates DNS + IP so SSRF stays locked.
+
+===
